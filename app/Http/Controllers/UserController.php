@@ -31,13 +31,6 @@ class UserController extends Controller
     }
 
     public function editUsers(Request $request, $id){
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'age' => 'required|integer',
-        //     'points' => 'required|integer',
-        //     'address' => 'required|string|max:255',
-        // ]);
-
         $user = User::find($id);
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -61,6 +54,23 @@ class UserController extends Controller
         $user->delete($id);
         return response()->json(['message' => 'User Deleted successfully']);
     }
+
+
+    public function updatePoints(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Update the user's points
+        $user->points = $request->input('points');
+        $user->save();
+
+        return response()->json(['message' => 'User points updated successfully']);
+    }
+
 
 
 }
