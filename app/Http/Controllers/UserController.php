@@ -71,6 +71,26 @@ class UserController extends Controller
         return response()->json(['message' => 'User points updated successfully']);
     }
 
+    //group users by scores and avg. ages
+    public function groupUsersByScore()
+    {
+        $users = User::selectRaw('ROUND(AVG(age)) as average_age, points')
+            ->groupBy('points')
+            ->orderBy('points', 'desc')
+            ->get();
+
+        $groupedUsers = [];
+
+        foreach ($users as $user) {
+            $groupedUsers[$user->points] = [
+                'names' => User::where('points', $user->points)->pluck('name')->toArray(),
+                'average_age' => $user->average_age,
+            ];
+        }
+
+        return response()->json($groupedUsers);
+    }
+
 
 
 }
