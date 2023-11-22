@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QRCodeController;
+
 
 Route::get('/users', [UserController::class, 'getUsers']);
 Route::post('/users/store', [UserController::class, 'postUsers']);
@@ -11,4 +13,5 @@ Route::delete('/users/delete/{id}', [UserController::class, 'deleteUsers']);
 Route::put('/users/edit/points/{id}', [UserController::class, 'updatePoints']);
 Route::get('/users/grouped-by-score', [UserController::class, 'groupUsersByScore']);
 Route::get('/users/grouped-by-scorev2', [UserController::class, 'groupUsersByScorev2']);
+Route::get('qrcode/{filename}', [QRCodeController::class, 'show']);
 
