@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Jobs\GenerateQRCode;
+
 
 class UserController extends Controller
 {
@@ -20,13 +22,21 @@ class UserController extends Controller
             'name'=> 'required'
         ]);
 
-        User::insert([
-            'name' => $request->name,
-            'age' => $request->age,
-            'points' => $request->points,
-            'address'=> $request->address
+        $user = new User([
+            'name' => $request->input('name'),
+            'age' => $request->input('age'),
+            'points' => $request->input('points'),
+            'address' => $request->input('address'),
         ]);
-        return response(['message' => 'User successfully added.']);
+
+        $user->save(); // Save the user to the database
+
+        $userId = $user->id;
+
+        $qrData = ['address' => $request->address,'id' => $userId];
+        GenerateQRCode::dispatch($qrData);
+
+        return response(['message' => 'User successfully added.', 'id'=> $userId],201);
 
     }
 
@@ -41,6 +51,7 @@ class UserController extends Controller
         $user->address = $request->input('address');
 
         $user->save();
+
         return response()->json(['message' => 'User updated successfully']);
 
     }
