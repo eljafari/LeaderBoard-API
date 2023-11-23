@@ -7,14 +7,7 @@ use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use App\Models\User;
 
-// $factory->define(User::class, function (Faker $faker) {
-//     return [
-//         'name' => $faker->name,
-//         'age' => $faker->numberBetween(8, 80),
-//         'points' => $faker->numberBetween(0, 200),
-//         'address' => $faker->address,
-//     ];
-// });
+
 class UserFactory extends Factory
 {
     /**
