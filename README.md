@@ -29,7 +29,26 @@ php artisan db:seed
 php artisan serve
 ### To Determine Winners
 php artisan schedule:work
+### Endpoints
+| Name |  Route  | Method |
+|:-----|:--------:|------:|
+| Create User   | /api/users |POST |
+| Update User   |  /api/users/{id}  |   PUT |
+| Get Users   |  /api/users  |   GET |
+| DELETE User   |  /api/users/{id}  |   DELETE |
+| Group by Points   | api/users/grouped-by-point |    GET |
+| Get QR code   |  /api/users/{id}/qrcode  |   GET |
 
+* Sample payload for creating and updating user request body
+```
+{
+        "name": "Prof. Ebba Gottlieb II",
+        "age": 60,
+        "points": 199,
+        "address": "896 Rickie Lake Suite 044\nPort Jamisonchester, MN 30086-4052"
+    }
+
+```
 Once the server is running, you can access the API by opening a web browser or using an API testing tool (e.g., Postman) and navigating to the URL displayed in the terminal (usually http://localhost:8000 by default).
 
 <img width="1349" alt="getApi" src="https://github.com/eljafari/LeaderBoard-API/assets/89866910/8215e69e-5516-44fd-b8c6-99d73bff54f3"><br/>
