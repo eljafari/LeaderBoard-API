@@ -458,3 +458,11 @@
 [2023-11-23 05:45:00] local.INFO: DetermineWinner started!  
 [2023-11-23 05:46:00] local.INFO: User with Id '41' Created!  
 [2023-11-23 05:46:00] local.INFO: QR code for User with Id '41' Generated!  
+[2023-11-23 05:57:14] local.ERROR: Command "php" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"php\" is not defined. at /Applications/XAMPP/xamppfiles/htdocs/leaderboard-api/vendor/symfony/console/Application.php:725)
+[stacktrace]
+#0 /Applications/XAMPP/xamppfiles/htdocs/leaderboard-api/vendor/symfony/console/Application.php(262): Symfony\\Component\\Console\\Application->find('php')
+#1 /Applications/XAMPP/xamppfiles/htdocs/leaderboard-api/vendor/symfony/console/Application.php(174): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Applications/XAMPP/xamppfiles/htdocs/leaderboard-api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Applications/XAMPP/xamppfiles/htdocs/leaderboard-api/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 

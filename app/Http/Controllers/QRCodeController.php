@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class QRCodeController extends Controller
 {
-    public function show($filename)
+    public function show($id)
     {
-        $path = storage_path("app/{$filename}");
+        $path = storage_path("app/{$id}"."_qr.png");
 
         if (!file_exists($path)) {
             abort(404);
