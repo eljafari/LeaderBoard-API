@@ -6,18 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
 use App\Jobs\GenerateQRCode;
+use \Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
 {
-    public function getUsers(){
-
+    public function getUsers()
+    {
         $user = User::latest('points', 'desc')->get();
         return response()->json($user);
     }
 
-    public function postUsers(Request $request ){
-
+    public function postUsers(Request $request )
+    {
         $validateData = $request->validate([
             'name'=> 'required'
         ]);
@@ -29,18 +30,20 @@ class UserController extends Controller
             'address' => $request->input('address'),
         ]);
 
-        $user->save(); // Save the user to the database
-
+        $user->save();
         $userId = $user->id;
+
+        Log::info('User with Id \''.$userId.'\' Created!');
 
         $qrData = ['address' => $request->address,'id' => $userId];
         GenerateQRCode::dispatch($qrData);
+        Log::info('QR code for User with Id \''.$userId.'\' Generated!');
 
         return response(['message' => 'User successfully added.', 'id'=> $userId],201);
-
     }
 
-    public function editUsers(Request $request, $id){
+    public function editUsers(Request $request, $id)
+    {
         $user = User::find($id);
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -56,8 +59,8 @@ class UserController extends Controller
 
     }
 
-    public function deleteUsers(Request $request, $id ){
-
+    public function deleteUsers(Request $request, $id )
+    {
         $user= User::find($id);
         if (!$user){
             return response()->json(['message' => 'User not found'], 404);
@@ -65,7 +68,6 @@ class UserController extends Controller
         $user->delete($id);
         return response()->json(['message' => 'User Deleted successfully']);
     }
-
 
     public function updatePoints(Request $request, $id)
     {
@@ -81,7 +83,6 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User points updated successfully']);
     }
-
 
     //group users by scores and avg. ages
     public function groupUsersByScorev2()
@@ -102,6 +103,7 @@ class UserController extends Controller
 
         return response()->json($groupedUsers);
     }
+
     public function groupUsersByScore()
     {
         $users = User::selectRaw('points, ROUND(AVG(age)) as average_age,   GROUP_CONCAT(name) as names')
