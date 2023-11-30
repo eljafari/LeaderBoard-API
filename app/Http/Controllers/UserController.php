@@ -20,13 +20,15 @@ class UserController extends Controller
     public function postUsers(Request $request )
     {
         $validateData = $request->validate([
-            'name'=> 'required'
+            'name'=> 'required',
+            'age' => 'nullable',
+            'address' => 'nullable',
         ]);
 
         $user = new User([
             'name' => $request->input('name'),
             'age' => $request->input('age'),
-            'points' => $request->input('points'),
+            'points' => 0,
             'address' => $request->input('address'),
         ]);
 

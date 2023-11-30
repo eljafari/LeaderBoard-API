@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('age');
+            $table->integer('age')->nullable(); //age can be null
             $table->integer('points')->default(0);
-            $table->text('address');
+            $table->text('address')->nullable(); //address can be null
         });
     }
 
