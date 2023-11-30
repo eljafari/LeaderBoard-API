@@ -34,8 +34,6 @@ class GenerateQRCode implements ShouldQueue
             $qrCodeData = $response->body();
             // Save the QR code image to local storage.
             Storage::put($this->filename, $qrCodeData);
-
-            $qrCodePath = storage_path("app/{$this->filename}");
         } else {
             // Handle any errors here.
             throw new \Exception('Error generating QR code');

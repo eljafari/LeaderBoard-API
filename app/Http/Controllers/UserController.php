@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use App\Jobs\GenerateQRCode;
 use \Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -67,7 +68,10 @@ class UserController extends Controller
         if (!$user){
             return response()->json(['message' => 'User not found'], 404);
         }
+
+        DB::table('winners')->where('user_id', $id)->delete();
         $user->delete($id);
+
         return response()->json(['message' => 'User Deleted successfully']);
     }
 
